@@ -5,37 +5,52 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApiTeste.Models;
 
 namespace WebApiTeste.Controllers
 {
     [Authorize]
     [ApiController]
-    [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    [Route("[controller]/[action]")]
+    public class UsuarioController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
 
-        private readonly ILogger<WeatherForecastController> _logger;
+        private readonly ILogger<UsuarioController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public UsuarioController(ILogger<UsuarioController> logger)
         {
             _logger = logger;
         }
 
+        //[HttpGet]
+        //public string ConsultarUsuarioTeste(string retorno ="padrao")
+        //{
+
+        //    return retorno;
+        //    //var rng = new Random();
+        //    //return Enumerable.Range(1, 5).Select(index => new Usuario
+        //    //{
+        //    //    Date = DateTime.Now.AddDays(index),
+        //    //    TemperatureC = rng.Next(-20, 55),
+        //    //    Summary = Summaries[rng.Next(Summaries.Length)]
+        //    //})
+        //    //.ToArray();
+        //}
+
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        public Usuario ConsultarUsuario()
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
+            Usuario teste = new Usuario();
+            return teste;
+            //var rng = new Random();
+            //return Enumerable.Range(1, 5).Select(index => new Usuario
+            //{
+            //    Date = DateTime.Now.AddDays(index),
+            //    TemperatureC = rng.Next(-20, 55),
+            //    Summary = Summaries[rng.Next(Summaries.Length)]
+            //})
+            //.ToArray();
         }
+
     }
 }
