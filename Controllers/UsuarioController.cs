@@ -41,14 +41,14 @@ namespace WebApiTeste.Controllers
         [HttpGet]
         public IActionResult ConsultarUsuario()
         {
-            //Usuario teste = new Usuario();
+            Usuario teste = new Usuario();
             try
             {
       
 
-                return Ok("testeRetorno");
+                return Ok(teste);
             }
-            catch
+            catch (Exception ex)
             {
 
                 return StatusCode((int)HttpStatusCode.InternalServerError);

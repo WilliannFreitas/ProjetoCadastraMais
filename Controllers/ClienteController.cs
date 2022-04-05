@@ -34,7 +34,7 @@ namespace WebApiTeste.Controllers
                 //return Ok(teste);
                 return Ok("testeRetorno");
             }
-            catch
+            catch(Exception ex)
             {
 
                 return StatusCode((int)HttpStatusCode.InternalServerError);
