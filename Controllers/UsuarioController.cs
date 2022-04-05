@@ -12,7 +12,7 @@ namespace WebApiTeste.Controllers
 {
     //[Authorize]
     [ApiController]
-    [Route("[controller]/[action]")]
+    [Route("api/[controller]/[action]")]
     public class UsuarioController : ControllerBase
     {
 
