@@ -32,12 +32,7 @@ namespace WebApiTeste
                     {
                         Title = "API WSVAP (WebSmartView)",
                         Version = PlatformServices.Default.Application.ApplicationVersion
-                    }
-                        );
-                //var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                //var xmlPath = Path.Combine(System.AppContext.BaseDirectory, xmlFile);
-
-                //c.IncludeXmlComments(xmlPath);
+                    } );
             });
 
             services.AddAuthentication(Microsoft.AspNetCore.Server.IISIntegration.IISDefaults.AuthenticationScheme);

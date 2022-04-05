@@ -52,4 +52,9 @@ namespace WebApiTeste.Models
 
         public virtual Usuario UsuarioAlteracao { get; set; }
     }
+
+    public class ClienteParam 
+    {
+        public string Nome { get; set; }
+    }
 }

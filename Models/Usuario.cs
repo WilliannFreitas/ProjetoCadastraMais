@@ -18,16 +18,16 @@ namespace WebApiTeste.Models
         public string Sobrenome { get; set; }
 
         [Column("LOGIN")]
-        public string logIn { get; set; }
+        public string LogIn { get; set; }
 
         [Column("DT_NASCIMENTO")]
-        public DateTime Data_Nascimento { get; set; }
+        public DateTime DataNascimento { get; set; }
 
         [Column("DT_INCLUSAO")]
-        public DateTime Data_Inclusao { get; set; }
+        public DateTime DataInclusao { get; set; }
 
         [Column("DT_ALTERACAO")]
-        public DateTime Data_Alteracao { get; set; }
+        public DateTime DataAlteracao { get; set; }
 
     }
 }

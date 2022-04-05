@@ -25,13 +25,10 @@ namespace WebApiTeste.Controllers
 
 
         [HttpGet]
-        public IActionResult ConsultarCliente()
+        public IActionResult ConsultarCliente(string Nome = "", string Sobrenome = "", string DDD = "", string Telefone = "", string Cpf = "", string Rg = "")
         {
             try
             {
-                //Cliente teste = new Cliente();
-
-                //return Ok(teste);
                 return Ok("testeRetorno");
             }
             catch(Exception ex)
@@ -39,15 +36,20 @@ namespace WebApiTeste.Controllers
 
                 return StatusCode((int)HttpStatusCode.InternalServerError);
             }
-            /*
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new Cliente
+        }
+
+        [HttpPost]
+        public IActionResult InserirAlterarCliente(ClienteParam Param)
+        {
+            try
             {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();*/
+                return Ok("testeRetorno");
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode((int)HttpStatusCode.InternalServerError);
+            }
         }
     }
 }

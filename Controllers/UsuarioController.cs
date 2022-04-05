@@ -23,29 +23,12 @@ namespace WebApiTeste.Controllers
             _logger = logger;
         }
 
-        //[HttpGet]
-        //public string ConsultarUsuarioTeste(string retorno ="padrao")
-        //{
-
-        //    return retorno;
-        //    //var rng = new Random();
-        //    //return Enumerable.Range(1, 5).Select(index => new Usuario
-        //    //{
-        //    //    Date = DateTime.Now.AddDays(index),
-        //    //    TemperatureC = rng.Next(-20, 55),
-        //    //    Summary = Summaries[rng.Next(Summaries.Length)]
-        //    //})
-        //    //.ToArray();
-        //}
-
         [HttpGet]
-        public IActionResult ConsultarUsuario()
+        public IActionResult ConsultarUsuario(string Nome = "", string Sobrenome = "", string LogIn = "", string DataNascimento = "01/01/1900")
         {
             Usuario teste = new Usuario();
             try
             {
-      
-
                 return Ok(teste);
             }
             catch (Exception ex)
@@ -53,14 +36,21 @@ namespace WebApiTeste.Controllers
 
                 return StatusCode((int)HttpStatusCode.InternalServerError);
             }
-            //var rng = new Random();
-            //return Enumerable.Range(1, 5).Select(index => new Usuario
-            //{
-            //    Date = DateTime.Now.AddDays(index),
-            //    TemperatureC = rng.Next(-20, 55),
-            //    Summary = Summaries[rng.Next(Summaries.Length)]
-            //})
-            //.ToArray();
+        }
+
+        [HttpPost]
+        public IActionResult InserirAlterarUsuario(ClienteParam Param)
+        {
+            try
+            {  
+                return Ok("testeRetorno");
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode((int)HttpStatusCode.InternalServerError);
+            }
+
         }
 
     }
