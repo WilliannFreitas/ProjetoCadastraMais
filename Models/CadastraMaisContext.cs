@@ -24,8 +24,8 @@ namespace WebApiTeste.Models
         {
 
             //modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConve‌​ntion>();
-            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
-            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            //modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+            //modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
             var stringConexao = Configuration.GetConnectionString("DefaultConnection");
 

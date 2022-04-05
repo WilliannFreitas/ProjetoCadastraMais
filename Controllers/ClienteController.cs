@@ -4,12 +4,13 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using WebApiTeste.Models;
 
 namespace WebApiTeste.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [Route("[controller]/[action]")]
     public class ClienteController : ControllerBase
@@ -24,10 +25,20 @@ namespace WebApiTeste.Controllers
 
 
         [HttpGet]
-        public Cliente ConsultarCliente()
+        public IActionResult ConsultarCliente()
         {
-            Cliente teste = new Cliente();
-            return teste;
+            try
+            {
+                //Cliente teste = new Cliente();
+
+                //return Ok(teste);
+                return Ok("testeRetorno");
+            }
+            catch
+            {
+
+                return StatusCode((int)HttpStatusCode.InternalServerError);
+            }
             /*
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new Cliente
