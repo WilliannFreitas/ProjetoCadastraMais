@@ -18,7 +18,7 @@ namespace WebApiTeste.Models
         public string Sobrenome { get; set; }
 
         [Column("LOGIN")]
-        public string LogIn { get; set; }
+        public string Login { get; set; }
 
         [Column("DT_NASCIMENTO")]
         public DateTime DataNascimento { get; set; }
@@ -28,6 +28,14 @@ namespace WebApiTeste.Models
 
         [Column("DT_ALTERACAO")]
         public DateTime DataAlteracao { get; set; }
+    }
 
+    public class UsuarioParam
+    {
+        public Int64 IdUsuario { get; set; }
+        public string Nome { get; set; }
+        public string Sobrenome { get; set; }
+        public string Login { get; set; }
+        public DateTime DataNascimento { get; set; }
     }
 }

@@ -27,9 +27,11 @@ namespace WebApiTeste.Controllers
         [HttpGet]
         public IActionResult ConsultarCliente(string Nome = "", string Sobrenome = "", string DDD = "", string Telefone = "", string Cpf = "", string Rg = "")
         {
+
+            Cliente cliente = new Cliente();
             try
             {
-                return Ok("testeRetorno");
+                return Ok(cliente);
             }
             catch(Exception ex)
             {
@@ -41,6 +43,12 @@ namespace WebApiTeste.Controllers
         [HttpPost]
         public IActionResult InserirAlterarCliente(ClienteParam Param)
         {
+
+            if (string.IsNullOrEmpty(Param.Nome))
+
+                return StatusCode((int)HttpStatusCode.PartialContent, "teste");
+            //throw new ArgumentException(message: "teste fa");
+
             try
             {
                 return Ok("testeRetorno");

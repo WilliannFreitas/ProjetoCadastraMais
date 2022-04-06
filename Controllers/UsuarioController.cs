@@ -26,28 +26,40 @@ namespace WebApiTeste.Controllers
         [HttpGet]
         public IActionResult ConsultarUsuario(string Nome = "", string Sobrenome = "", string LogIn = "", string DataNascimento = "01/01/1900")
         {
-            Usuario teste = new Usuario();
+            Usuario usuario = new Usuario();
             try
             {
-                return Ok(teste);
+                return Ok(usuario);
             }
             catch (Exception ex)
             {
-
                 return StatusCode((int)HttpStatusCode.InternalServerError);
             }
         }
 
         [HttpPost]
-        public IActionResult InserirAlterarUsuario(ClienteParam Param)
+        public IActionResult InserirAlterarUsuario(UsuarioParam Param)
         {
+         
+            string campos = string.Empty;
+            if (string.IsNullOrWhiteSpace(Param.Nome))
+                campos += " Nome,";
+            if (string.IsNullOrWhiteSpace(Param.Sobrenome))
+                campos += " Sobrenome,";
+            if (string.IsNullOrWhiteSpace(Param.Login))
+                campos += " Login,";
+            if (Param.DataNascimento < DateTime.Now.AddYears(-100))
+                campos += " Data de Nascimento";
+             
+            if (!string.IsNullOrWhiteSpace(campos))
+                return StatusCode((int)HttpStatusCode.NotAcceptable, $"O(s) campos(s){campos} são de preenchimento obrigatório!");
+
             try
             {  
-                return Ok("testeRetorno");
+                return Ok(Param);
             }
             catch (Exception ex)
             {
-
                 return StatusCode((int)HttpStatusCode.InternalServerError);
             }
 

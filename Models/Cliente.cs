@@ -30,29 +30,26 @@ namespace WebApiTeste.Models
         public string Rg { get; set; }
 
         [Column("DT_NASCIMENTO")]
-        public DateTime Data_Nascimento { get; set; }
+        public DateTime DataNascimento { get; set; }
 
         [ForeignKey("UsuarioInclusao")]
         [Column("ID_USUARIO_INCLUSAO")]
         public Int64 IdUsuarioInclusao { get; set; }
 
         [Column("DT_INCLUSAO")]
-        public DateTime Data_Inclusao { get; set; }
+        public DateTime DataInclusao { get; set; }
 
         [ForeignKey("UsuarioAlteracao")]
         [Column("ID_USUARIO_ALTERACAO")]
         public Int64 IdUsuarioAlteracao { get; set; }
 
         [Column("DT_ALTERACAO")]
-        public DateTime Data_Alteracao { get; set; }
-
-
+        public DateTime DataAlteracao { get; set; }
 
         public virtual Usuario UsuarioInclusao { get; set; }
 
         public virtual Usuario UsuarioAlteracao { get; set; }
     }
-
     public class ClienteParam 
     {
         public string Nome { get; set; }
