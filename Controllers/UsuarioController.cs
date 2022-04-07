@@ -40,7 +40,7 @@ namespace WebApiTeste.Controllers
         [HttpPost]
         public IActionResult InserirAlterarUsuario(UsuarioParam Param)
         {
-         
+
             string campos = string.Empty;
             if (string.IsNullOrWhiteSpace(Param.Nome))
                 campos += " Nome,";
@@ -50,13 +50,29 @@ namespace WebApiTeste.Controllers
                 campos += " Login,";
             if (Param.DataNascimento < DateTime.Now.AddYears(-100))
                 campos += " Data de Nascimento";
-             
+
             if (!string.IsNullOrWhiteSpace(campos))
                 return StatusCode((int)HttpStatusCode.NotAcceptable, $"O(s) campos(s){campos} são de preenchimento obrigatório!");
 
+            Usuario usuario = new Usuario();
+            usuario.Nome = Param.Nome;
+            usuario.Sobrenome = Param.Sobrenome;
+            usuario.Login = Param.Login;
+            usuario.DataNascimento = Param.DataNascimento;
+
+            if (Param.IdUsuario <= 0)
+            {
+                usuario.DataInclusao = DateTime.Now;
+            }
+            else
+            {
+                usuario.DataAlteracao = DateTime.Now;
+                usuario.IdUsuario = Param.IdUsuario;
+            }
+
             try
-            {  
-                return Ok(Param);
+            {
+                return Ok(usuario);
             }
             catch (Exception ex)
             {

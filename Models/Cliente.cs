@@ -46,12 +46,21 @@ namespace WebApiTeste.Models
         [Column("DT_ALTERACAO")]
         public DateTime DataAlteracao { get; set; }
 
-        public virtual Usuario UsuarioInclusao { get; set; }
+        internal virtual Usuario UsuarioInclusao { get; set; }
 
-        public virtual Usuario UsuarioAlteracao { get; set; }
+        internal virtual Usuario UsuarioAlteracao { get; set; }
     }
     public class ClienteParam 
     {
+        public Int64 IdCliente { get; set; }
         public string Nome { get; set; }
+        public string Sobrenome { get; set; }
+        public string DDD { get; set; }
+        public string Telefone { get; set; }
+        public string Cpf { get; set; }
+        public string Rg { get; set; }
+        public DateTime DataNascimento { get; set; }
+        public Int64 IdUsuarioInclusao { get; set; }
+        public Int64 IdUsuarioAlteracao { get; set; }
     }
 }

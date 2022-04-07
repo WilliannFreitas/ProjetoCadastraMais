@@ -27,7 +27,7 @@ namespace WebApiTeste.Models
         public DateTime DataInclusao { get; set; }
 
         [Column("DT_ALTERACAO")]
-        public DateTime DataAlteracao { get; set; }
+        public DateTime? DataAlteracao { get; set; }
     }
 
     public class UsuarioParam

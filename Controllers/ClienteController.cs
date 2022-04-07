@@ -43,15 +43,45 @@ namespace WebApiTeste.Controllers
         [HttpPost]
         public IActionResult InserirAlterarCliente(ClienteParam Param)
         {
+            string campos = string.Empty;
+            if (string.IsNullOrWhiteSpace(Param.Nome))
+                campos += " Nome,";
+            if (string.IsNullOrWhiteSpace(Param.Sobrenome))
+                campos += " Sobrenome,";
+            if (string.IsNullOrWhiteSpace(Param.DDD))
+                campos += " DDD,";
+            if (string.IsNullOrWhiteSpace(Param.Cpf))
+                campos += " CPF,";
+            if (string.IsNullOrWhiteSpace(Param.Rg))
+                campos += " RG,";
+            if (Param.DataNascimento < DateTime.Now.AddYears(-100))
+                campos += " Data de Nascimento";
 
-            if (string.IsNullOrEmpty(Param.Nome))
+            if (!string.IsNullOrWhiteSpace(campos))
+                return StatusCode((int)HttpStatusCode.NotAcceptable, $"O(s) campos(s){campos} são de preenchimento obrigatório!");
 
-                return StatusCode((int)HttpStatusCode.PartialContent, "teste");
-            //throw new ArgumentException(message: "teste fa");
+            Cliente cliente = new Cliente();
+            cliente.Nome = Param.Nome;
+            cliente.Sobrenome = Param.Sobrenome;
+            cliente.DDD = Param.DDD;
+            cliente.Cpf = Param.Cpf;
+            cliente.Rg = Param.Rg;
+
+            if (Param.IdCliente <= 0)
+            {
+                cliente.DataInclusao = DateTime.Now;
+                cliente.IdUsuarioInclusao = Param.IdUsuarioInclusao;
+            }
+            else
+            {
+                cliente.DataAlteracao = DateTime.Now;
+                cliente.IdCliente = Param.IdCliente;
+                cliente.IdUsuarioAlteracao = Param.IdUsuarioAlteracao;
+            }
 
             try
             {
-                return Ok("testeRetorno");
+                return Ok(cliente);
             }
             catch (Exception ex)
             {
