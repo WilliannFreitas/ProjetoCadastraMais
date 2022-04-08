@@ -23,7 +23,6 @@ namespace WebApiTeste.Controllers
             _logger = logger;
         }
 
-
         [HttpGet]
         public IActionResult ConsultarCliente(string Nome = "", string Sobrenome = "", string DDD = "", string Telefone = "", string Cpf = "", string Rg = "")
         {
@@ -35,7 +34,6 @@ namespace WebApiTeste.Controllers
             }
             catch(Exception ex)
             {
-
                 return StatusCode((int)HttpStatusCode.InternalServerError);
             }
         }
@@ -85,7 +83,6 @@ namespace WebApiTeste.Controllers
             }
             catch (Exception ex)
             {
-
                 return StatusCode((int)HttpStatusCode.InternalServerError);
             }
         }
