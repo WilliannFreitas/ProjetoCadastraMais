@@ -1,7 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
-using System.Data.Entity;
-using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace WebApiTeste.Models
 {
@@ -16,10 +15,15 @@ namespace WebApiTeste.Models
                     .AddJsonFile("appsettings.json")
                     .Build();
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        public CadastraMaisContext(DbContextOptions<CadastraMaisContext> opcoes) : base(opcoes)
         {
-            var stringConexao = Configuration.GetConnectionString("DefaultConnection");
+            
         }
+
+        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        //{
+        //    var stringConexao = Configuration.GetConnectionString("DefaultConnection");
+        //}
 
     }
 
