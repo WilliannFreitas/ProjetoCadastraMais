@@ -11,6 +11,7 @@ namespace WebApiTeste.Models
         [Column("ID_CLIENTE")]
         public Int64 IdCliente { get; set;}
 
+
         [Column("NOME")]
         public string Nome { get; set; }
 

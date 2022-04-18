@@ -19,24 +19,17 @@ namespace WebApiTeste.Controllers
 
         private readonly IClienteRepository repos;
 
-        //private static List<Cliente> cliente = new List<Cliente>();
-
-        //public List<Cliente> Get() 
-        //{
-        //    return cliente;
-        //}
-
         public ClienteController(IClienteRepository _repos)
         {
             repos = _repos;
         }
 
         [HttpGet]
-        //public IActionResult ConsultarCliente([FromRoute] ClienteId cliente)
-        //{
-        //    //var cliente_db = repos.Read(cliente.Id);
-        //    //return Ok(cliente_db);
-        //}
+        public IActionResult ConsultarCliente([FromQuery] Cliente cliente)
+        {
+            var cliente_db = repos.Read(cliente);
+            return Ok(cliente_db);
+        }
 
         [HttpPost]
         public IActionResult InserirAlterarCliente(ClienteParam Param)
@@ -80,8 +73,8 @@ namespace WebApiTeste.Controllers
 
             try
             {
-                if (repos.Create(cliente));
-
+                //if (repos.Create(cliente));
+                repos.Create(cliente);
                 //return BadRequest();
             }
             catch (Exception ex)

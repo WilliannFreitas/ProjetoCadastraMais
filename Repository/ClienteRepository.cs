@@ -1,4 +1,7 @@
-﻿using WebApiTeste.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using WebApiTeste.Models;
 
 namespace WebApiTeste.Repository
 {
@@ -6,7 +9,9 @@ namespace WebApiTeste.Repository
     {
         public bool Create(Cliente param);
 
-        //public Cliente Read(int id);
+        public List<Cliente> Read(Cliente cliente);
+
+
     }
     public class ClienteRepository : IClienteRepository
     {
@@ -40,17 +45,35 @@ namespace WebApiTeste.Repository
             }
         }
 
-        //public Cliente Read(int id)
-        //{
-        //    try
-        //    {
-        //        //var cliente_db = db.cliente.Find(id);
-        //        //return cliente_db;
-        //    }
-        //    catch
-        //    {
-        //        return new Cliente();
-        //    }
-        //}
+        public List<Cliente> Read(Cliente cliente)
+        {
+            try
+            {
+                using (var context = db)
+                {
+
+                    //var teste = context.Clientes.Find(cliente.IdCliente);
+                    var teste = context.Clientes.ToList();
+
+                    if (cliente.IdCliente > 0)
+                        teste = teste.Where(banco => banco.IdCliente == cliente.IdCliente).ToList();
+
+                    if (!String.IsNullOrWhiteSpace(cliente.Nome))
+                        teste = teste.Where(banco => banco.Nome.Contains(cliente.Nome)).ToList();
+
+                    if (!String.IsNullOrWhiteSpace(cliente.Sobrenome))
+                        teste = teste.Where(banco => banco.Sobrenome.Contains(cliente.Sobrenome)).ToList();
+
+
+
+                    return teste;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return new List<Cliente>();
+            }
+        }
     }
 }
