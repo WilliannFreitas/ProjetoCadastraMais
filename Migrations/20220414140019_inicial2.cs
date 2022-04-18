@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WebApiTeste.Migrations
 {
-    public partial class inicial : Migration
+    public partial class inicial2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

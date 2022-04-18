@@ -10,8 +10,8 @@ using WebApiTeste.Models;
 namespace WebApiTeste.Migrations
 {
     [DbContext(typeof(CadastraMaisContext))]
-    [Migration("20220412191915_inicial")]
-    partial class inicial
+    [Migration("20220414140019_inicial2")]
+    partial class inicial2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

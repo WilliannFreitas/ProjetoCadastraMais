@@ -5,11 +5,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.PlatformAbstractions;
+using Microsoft.Graph;
 using Microsoft.OpenApi.Models;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+
 using WebApiTeste.Models;
+using WebApiTeste.Repository;
 
 namespace WebApiTeste
 {
@@ -28,6 +31,8 @@ namespace WebApiTeste
             services.AddControllers();
 
             services.AddDbContext<CadastraMaisContext>(opcoes => opcoes.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddScoped<IClienteRepository, ClienteRepository>();
 
             services.AddSwaggerGen(c =>
             {

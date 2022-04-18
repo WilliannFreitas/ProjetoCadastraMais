@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using WebApiTeste.Models;
+using WebApiTeste.Repository;
 
 namespace WebApiTeste.Controllers
 {
@@ -16,27 +17,26 @@ namespace WebApiTeste.Controllers
     public class ClienteController : ControllerBase
     {
 
-        private readonly ILogger<ClienteController> _logger;
+        private readonly IClienteRepository repos;
 
-        public ClienteController(ILogger<ClienteController> logger)
+        //private static List<Cliente> cliente = new List<Cliente>();
+
+        //public List<Cliente> Get() 
+        //{
+        //    return cliente;
+        //}
+
+        public ClienteController(IClienteRepository _repos)
         {
-            _logger = logger;
+            repos = _repos;
         }
 
         [HttpGet]
-        public IActionResult ConsultarCliente(string Nome = "", string Sobrenome = "", string DDD = "", string Telefone = "", string Cpf = "", string Rg = "")
-        {
-
-            Cliente cliente = new Cliente();
-            try
-            {
-                return Ok(cliente);
-            }
-            catch(Exception ex)
-            {
-                return StatusCode((int)HttpStatusCode.InternalServerError);
-            }
-        }
+        //public IActionResult ConsultarCliente([FromRoute] ClienteId cliente)
+        //{
+        //    //var cliente_db = repos.Read(cliente.Id);
+        //    //return Ok(cliente_db);
+        //}
 
         [HttpPost]
         public IActionResult InserirAlterarCliente(ClienteParam Param)
@@ -61,6 +61,7 @@ namespace WebApiTeste.Controllers
             Cliente cliente = new Cliente();
             cliente.Nome = Param.Nome;
             cliente.Sobrenome = Param.Sobrenome;
+            cliente.Telefone = Param.Telefone;
             cliente.DDD = Param.DDD;
             cliente.Cpf = Param.Cpf;
             cliente.Rg = Param.Rg;
@@ -79,12 +80,16 @@ namespace WebApiTeste.Controllers
 
             try
             {
-                return Ok(cliente);
+                if (repos.Create(cliente));
+
+                //return BadRequest();
             }
             catch (Exception ex)
             {
-                return StatusCode((int)HttpStatusCode.InternalServerError);
+                //return StatusCode((int)HttpStatusCode.InternalServerError);
+                return Ok($" ERRO: {ex} - {ex.InnerException} ");
             }
+            return Ok();
         }
     }
 }

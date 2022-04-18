@@ -17,6 +17,7 @@ namespace WebApiTeste.Controllers
     {
 
         private readonly ILogger<UsuarioController> _logger;
+        //private CadastraMaisContext db = GetOptions();
 
         public UsuarioController(ILogger<UsuarioController> logger)
         {
