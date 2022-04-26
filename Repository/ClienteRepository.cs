@@ -7,9 +7,9 @@ namespace WebApiTeste.Repository
 {
     public interface IClienteRepository
     {
-        public bool Create(Cliente param);
+        public bool Inserir(Cliente param);
 
-        public List<Cliente> Read(Cliente cliente);
+        public List<Cliente> Consultar(Cliente cliente);
 
 
     }
@@ -21,7 +21,7 @@ namespace WebApiTeste.Repository
         {
             db = _db;
         }
-        public bool Create(Cliente cliente)
+        public bool Inserir(Cliente cliente)
         {
             try
             {
@@ -45,7 +45,7 @@ namespace WebApiTeste.Repository
             }
         }
 
-        public List<Cliente> Read(Cliente cliente)
+        public List<Cliente> Consultar(Cliente cliente)
         {
             try
             {

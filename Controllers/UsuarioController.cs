@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using WebApiTeste.Models;
+using WebApiTeste.Repository;
 
 namespace WebApiTeste.Controllers
 {
@@ -16,26 +17,18 @@ namespace WebApiTeste.Controllers
     public class UsuarioController : ControllerBase
     {
 
-        private readonly ILogger<UsuarioController> _logger;
-        //private CadastraMaisContext db = GetOptions();
+        private readonly IUsuarioRepository repos;
 
-        public UsuarioController(ILogger<UsuarioController> logger)
+        public UsuarioController(IUsuarioRepository _repos)
         {
-            _logger = logger;
+            repos = _repos;
         }
 
         [HttpGet]
-        public IActionResult ConsultarUsuario(string Nome = "", string Sobrenome = "", string LogIn = "", string DataNascimento = "01/01/1900")
+        public IActionResult ConsultarUsuario([FromQuery] Usuario usuario)
         {
-            Usuario usuario = new Usuario();
-            try
-            {
-                return Ok(usuario);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode((int)HttpStatusCode.InternalServerError);
-            }
+            var usuario_db = repos.Consultar(usuario);
+            return Ok(usuario_db);
         }
 
         [HttpPost]
@@ -67,6 +60,7 @@ namespace WebApiTeste.Controllers
             }
             else
             {
+                usuario = repos.Consultar(usuario, true).FirstOrDefault();
                 usuario.DataAlteracao = DateTime.Now;
                 usuario.IdUsuario = Param.IdUsuario;
             }

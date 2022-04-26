@@ -28,6 +28,7 @@ namespace WebApiTeste.Models
 
         [Column("DT_ALTERACAO")]
         public DateTime? DataAlteracao { get; set; }
+        public int IdCliente { get; internal set; }
     }
 
     public class UsuarioParam

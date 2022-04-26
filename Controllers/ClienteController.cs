@@ -27,7 +27,7 @@ namespace WebApiTeste.Controllers
         [HttpGet]
         public IActionResult ConsultarCliente([FromQuery] Cliente cliente)
         {
-            var cliente_db = repos.Read(cliente);
+            var cliente_db = repos.Consultar(cliente);
             return Ok(cliente_db);
         }
 
@@ -74,7 +74,7 @@ namespace WebApiTeste.Controllers
             try
             {
                 //if (repos.Create(cliente));
-                repos.Create(cliente);
+                repos.Inserir(cliente);
                 //return BadRequest();
             }
             catch (Exception ex)
