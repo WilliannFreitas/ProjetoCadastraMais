@@ -33,6 +33,8 @@ namespace WebApiTeste
             services.AddDbContext<CadastraMaisContext>(opcoes => opcoes.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<IClienteRepository, ClienteRepository>();
+            services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+
 
             services.AddSwaggerGen(c =>
             {
