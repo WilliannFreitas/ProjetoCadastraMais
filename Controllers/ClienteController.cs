@@ -24,11 +24,21 @@ namespace WebApiTeste.Controllers
             repos = _repos;
         }
 
+
         [HttpGet]
         public IActionResult ConsultarCliente([FromQuery] Cliente cliente)
         {
-            var cliente_db = repos.Consultar(cliente);
-            return Ok(cliente_db);
+
+            try
+            {
+                var cliente_db = repos.Consultar(cliente);
+                return Ok(cliente_db);
+            }
+            catch (Exception ex)
+            {
+                return Ok($" ERRO: {ex} - {ex.InnerException} ");
+            }
+
         }
 
         [HttpPost]
@@ -51,30 +61,33 @@ namespace WebApiTeste.Controllers
             if (!string.IsNullOrWhiteSpace(campos))
                 return StatusCode((int)HttpStatusCode.NotAcceptable, $"O(s) campos(s){campos} são de preenchimento obrigatório!");
 
-            Cliente cliente = new Cliente();
-            cliente.Nome = Param.Nome;
-            cliente.Sobrenome = Param.Sobrenome;
-            cliente.Telefone = Param.Telefone;
-            cliente.DDD = Param.DDD;
-            cliente.Cpf = Param.Cpf;
-            cliente.Rg = Param.Rg;
-
-            if (Param.IdCliente <= 0)
-            {
-                cliente.DataInclusao = DateTime.Now;
-                cliente.IdUsuarioInclusao = Param.IdUsuarioInclusao;
-            }
-            else
-            {
-                cliente.DataAlteracao = DateTime.Now;
-                cliente.IdCliente = Param.IdCliente;
-                cliente.IdUsuarioAlteracao = Param.IdUsuarioAlteracao;
-            }
-
             try
             {
+
+                Cliente cliente = new Cliente();
+                cliente.Nome = Param.Nome;
+                cliente.Sobrenome = Param.Sobrenome;
+                cliente.Telefone = Param.Telefone;
+                cliente.DDD = Param.DDD;
+                cliente.Cpf = Param.Cpf;
+                cliente.Rg = Param.Rg;
+
+                if (Param.IdCliente <= 0)
+                {
+                    cliente.DataInclusao = DateTime.Now;
+                    cliente.IdUsuarioInclusao = Param.IdUsuarioInclusao;
+                    repos.Inserir(cliente);
+                }
+                else
+                {
+                    cliente.DataAlteracao = DateTime.Now;
+                    cliente.IdCliente = Param.IdCliente;
+                    cliente.IdUsuarioAlteracao = Param.IdUsuarioAlteracao;
+                }
+
+
                 //if (repos.Create(cliente));
-                repos.Inserir(cliente);
+               
                 //return BadRequest();
             }
             catch (Exception ex)

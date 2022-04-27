@@ -27,8 +27,16 @@ namespace WebApiTeste.Controllers
         [HttpGet]
         public IActionResult ConsultarUsuario([FromQuery] Usuario usuario)
         {
-            var usuario_db = repos.Consultar(usuario);
-            return Ok(usuario_db);
+            try
+            {
+                var usuario_db = repos.Consultar(usuario);
+                return Ok(usuario_db);
+            }
+            catch (Exception ex)
+            {
+                return Ok($" ERRO: {ex} - {ex.InnerException} ");
+            }
+
         }
 
         [HttpPost]
@@ -48,25 +56,26 @@ namespace WebApiTeste.Controllers
             if (!string.IsNullOrWhiteSpace(campos))
                 return StatusCode((int)HttpStatusCode.NotAcceptable, $"O(s) campos(s){campos} são de preenchimento obrigatório!");
 
-            Usuario usuario = new Usuario();
-            usuario.Nome = Param.Nome;
-            usuario.Sobrenome = Param.Sobrenome;
-            usuario.Login = Param.Login;
-            usuario.DataNascimento = Param.DataNascimento;
-
-            if (Param.IdUsuario <= 0)
-            {
-                usuario.DataInclusao = DateTime.Now;
-            }
-            else
-            {
-                usuario = repos.Consultar(usuario, true).FirstOrDefault();
-                usuario.DataAlteracao = DateTime.Now;
-                usuario.IdUsuario = Param.IdUsuario;
-            }
-
             try
             {
+                Usuario usuario = new Usuario();
+                usuario.Nome = Param.Nome;
+                usuario.Sobrenome = Param.Sobrenome;
+                usuario.Login = Param.Login;
+                usuario.DataNascimento = Param.DataNascimento;
+
+                if (Param.IdUsuario <= 0)
+                {
+                    usuario.DataInclusao = DateTime.Now;
+                    repos.Inserir(usuario);
+                }
+                else
+                {
+                    usuario.DataAlteracao = DateTime.Now;
+                    usuario.IdUsuario = Param.IdUsuario;
+                    repos.Alterar(usuario);
+                }
+
                 return Ok(usuario);
             }
             catch (Exception ex)

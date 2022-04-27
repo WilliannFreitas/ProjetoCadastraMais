@@ -8,6 +8,7 @@ namespace WebApiTeste.Repository
     public interface IUsuarioRepository
     {
         public bool Inserir(Usuario param);
+        public bool Alterar(Usuario param);
 
         public List<Usuario> Consultar(Usuario usuario, bool EAlteracao = false);
 
@@ -24,16 +25,8 @@ namespace WebApiTeste.Repository
         {
             try
             {
-                var usuario_db = new Usuario()
-                {
-                    Nome = usuario.Nome,
-                    Sobrenome = usuario.Sobrenome,
-                    Login = usuario.Login,
-                    DataNascimento = usuario.DataNascimento
-                };
-                db.Add(usuario_db);
+                db.Add(usuario);
                 db.SaveChanges();
-
                 return true;
             }
             catch
@@ -42,6 +35,19 @@ namespace WebApiTeste.Repository
             }
         }
 
+        public bool Alterar(Usuario usuario)
+        {
+            try
+            {
+                db.Update(usuario);
+                db.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
         public List<Usuario> Consultar(Usuario usuario, bool EAlteracao = false)
         {
             try
@@ -49,11 +55,10 @@ namespace WebApiTeste.Repository
                 using (var context = db)
                 {
 
-                    //var teste = context.Clientes.Find(cliente.IdCliente);
                     var teste = context.Usuarios.ToList();
 
                     if (usuario.IdUsuario > 0)
-                        teste = teste.Where(banco => banco.IdCliente == usuario.IdUsuario).ToList();
+                        teste = teste.Where(banco => banco.IdUsuario == usuario.IdUsuario).ToList();
                     if (!EAlteracao)
                     {
                         if (!String.IsNullOrWhiteSpace(usuario.Nome))
@@ -62,9 +67,6 @@ namespace WebApiTeste.Repository
                         if (!String.IsNullOrWhiteSpace(usuario.Sobrenome))
                             teste = teste.Where(banco => banco.Sobrenome.Contains(usuario.Sobrenome)).ToList();
                     }
-
-
-
 
                     return teste;
                 }
