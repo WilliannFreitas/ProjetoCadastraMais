@@ -48,6 +48,12 @@ namespace WebApiTeste.Repository
                 return false;
             }
         }
+        /// <summary>
+        /// Método para consultar no Banco de dados.
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <param name="EAlteracao"></param>
+        /// <returns></returns>
         public List<Usuario> Consultar(Usuario usuario, bool EAlteracao = false)
         {
             try
@@ -62,10 +68,10 @@ namespace WebApiTeste.Repository
                     if (!EAlteracao)
                     {
                         if (!String.IsNullOrWhiteSpace(usuario.Nome))
-                            teste = teste.Where(banco => banco.Nome.Contains(usuario.Nome)).ToList();
+                            teste = teste.Where(banco => banco.Nome.ToUpper().Contains(usuario.Nome.ToUpper())).ToList();
 
                         if (!String.IsNullOrWhiteSpace(usuario.Sobrenome))
-                            teste = teste.Where(banco => banco.Sobrenome.Contains(usuario.Sobrenome)).ToList();
+                            teste = teste.Where(banco => banco.Sobrenome.ToUpper().Contains(usuario.Sobrenome.ToUpper())).ToList();
                     }
 
                     return teste;

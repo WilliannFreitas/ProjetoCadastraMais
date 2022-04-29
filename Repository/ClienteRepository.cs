@@ -8,8 +8,9 @@ namespace WebApiTeste.Repository
     public interface IClienteRepository
     {
         public bool Inserir(Cliente param);
+        public bool Alterar(Cliente param);
 
-        public List<Cliente> Consultar(Cliente cliente);
+        public List<Cliente> Consultar(Cliente cliente, bool EAlteracao = false);
 
 
     }
@@ -25,18 +26,8 @@ namespace WebApiTeste.Repository
         {
             try
             {
-                var cliente_db = new Cliente()
-                {
-                    Nome = cliente.Nome,
-                    Sobrenome = cliente.Sobrenome,
-                    DDD = cliente.DDD,
-                    Telefone = cliente.Telefone,
-                    Cpf = cliente.Cpf,
-                    Rg = cliente.Rg
-                };
-                db.Add(cliente_db);
+                db.Add(cliente);
                 db.SaveChanges();
-
                 return true;
             }
             catch
@@ -45,7 +36,21 @@ namespace WebApiTeste.Repository
             }
         }
 
-        public List<Cliente> Consultar(Cliente cliente)
+        public bool Alterar(Cliente cliente)
+        {
+            try
+            {
+                db.Update(cliente);
+                db.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public List<Cliente> Consultar(Cliente cliente, bool EAlteracao = false)
         {
             try
             {
@@ -59,10 +64,10 @@ namespace WebApiTeste.Repository
                         teste = teste.Where(banco => banco.IdCliente == cliente.IdCliente).ToList();
 
                     if (!String.IsNullOrWhiteSpace(cliente.Nome))
-                        teste = teste.Where(banco => banco.Nome.Contains(cliente.Nome)).ToList();
+                        teste = teste.Where(banco => banco.Nome.ToUpper().Contains(cliente.Nome.ToUpper())).ToList();
 
                     if (!String.IsNullOrWhiteSpace(cliente.Sobrenome))
-                        teste = teste.Where(banco => banco.Sobrenome.Contains(cliente.Sobrenome)).ToList();
+                        teste = teste.Where(banco => banco.Sobrenome.ToUpper().Contains(cliente.Sobrenome.ToUpper())).ToList();
 
 
 

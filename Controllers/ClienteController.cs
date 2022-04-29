@@ -61,9 +61,12 @@ namespace WebApiTeste.Controllers
             if (!string.IsNullOrWhiteSpace(campos))
                 return StatusCode((int)HttpStatusCode.NotAcceptable, $"O(s) campos(s){campos} são de preenchimento obrigatório!");
 
+            if (CpfCnpjValidador.IsValid(Param.Cpf))
+                return StatusCode((int)HttpStatusCode.NotAcceptable, $"O CPF digitado não é válido!");
+
             try
             {
-
+                //atribuindo os valores de param para dentro do novo cliente instanciado.
                 Cliente cliente = new Cliente();
                 cliente.Nome = Param.Nome;
                 cliente.Sobrenome = Param.Sobrenome;
@@ -72,30 +75,27 @@ namespace WebApiTeste.Controllers
                 cliente.Cpf = Param.Cpf;
                 cliente.Rg = Param.Rg;
 
+                //atrinbuindo novo cliente. 
                 if (Param.IdCliente <= 0)
                 {
                     cliente.DataInclusao = DateTime.Now;
-                    cliente.IdUsuarioInclusao = Param.IdUsuarioInclusao;
                     repos.Inserir(cliente);
                 }
+                //atrinbuindo alterações em um cliente existente.
                 else
                 {
                     cliente.DataAlteracao = DateTime.Now;
                     cliente.IdCliente = Param.IdCliente;
-                    cliente.IdUsuarioAlteracao = Param.IdUsuarioAlteracao;
+                    repos.Alterar(cliente);
                 }
 
-
-                //if (repos.Create(cliente));
-               
-                //return BadRequest();
+                //retornando cliente instanciado acima.
+                return Ok(cliente);
             }
             catch (Exception ex)
             {
-                //return StatusCode((int)HttpStatusCode.InternalServerError);
-                return Ok($" ERRO: {ex} - {ex.InnerException} ");
+                return StatusCode((int)HttpStatusCode.InternalServerError);
             }
-            return Ok();
         }
     }
 }
